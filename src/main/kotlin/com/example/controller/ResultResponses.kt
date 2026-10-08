@@ -8,10 +8,6 @@ import com.example.service.result.UserResult
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
-// Extension functions превращают результат сервиса (sealed class) в HTTP-ответ.
-// Они лежат отдельно от контроллеров. Во всех when нет else: компилятор сам
-// проверяет, что обработаны ВСЕ варианты результата.
-
 fun errorResponse(status: HttpStatus, message: String): ResponseEntity<Any> =
     ResponseEntity.status(status).body(ErrorResponse(message))
 
