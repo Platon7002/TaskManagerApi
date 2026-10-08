@@ -6,10 +6,6 @@ import com.example.dto.response.TaskResponse
 import com.example.dto.response.UserResponse
 import com.example.model.Task
 import com.example.model.User
-
-// Extension functions: превращают модель в ответ и запрос в модель.
-// Лежат отдельно от классов, чтобы модель ничего не знала про DTO.
-
 fun User.toResponse(): UserResponse = UserResponse(id = id, name = name, email = email)
 
 fun Task.toResponse(): TaskResponse = TaskResponse(
@@ -23,7 +19,6 @@ fun Task.toResponse(): TaskResponse = TaskResponse(
     completedAt = completedAt
 )
 
-/** Имя очищается от пробелов, email приводится к нижнему регистру (чтобы Alex@x.ru и alex@x.ru были одним адресом). */
 fun CreateUserRequest.toEntity(): User = User(name = name.trim(), email = email.trim().lowercase())
 
 fun CreateTaskRequest.toEntity(owner: User): Task = Task(
