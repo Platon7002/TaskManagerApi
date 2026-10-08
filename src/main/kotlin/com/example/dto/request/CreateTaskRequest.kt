@@ -5,7 +5,6 @@ import jakarta.validation.constraints.Positive
 import jakarta.validation.constraints.Size
 import java.time.LocalDate
 
-/** Запрос на создание задачи. Формат дедлайна: 2024-12-31. */
 data class CreateTaskRequest(
     @field:Positive(message = "userId должен быть положительным числом")
     val userId: Long = 0,
