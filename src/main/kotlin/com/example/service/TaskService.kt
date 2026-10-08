@@ -16,7 +16,6 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
-/** Пауза между элементами потока, чтобы стрим было видно «живым» (delay не блокирует поток). */
 private const val STREAM_DELAY_MS = 300L
 
 @Service
@@ -36,7 +35,6 @@ class TaskService(
         if (task == null) TaskResult.NotFound(id) else TaskResult.Success(task)
     }
 
-    /** Отмечает задачу выполненной. Повторное завершение даёт AlreadyCompleted. */
     suspend fun complete(id: Long): TaskResult = withContext(Dispatchers.IO) {
         val task = taskRepository.findByIdOrNull(id)
             ?: return@withContext TaskResult.NotFound(id)
@@ -56,7 +54,6 @@ class TaskService(
         TaskResult.Deleted(id)
     }
 
-    /** Поток всех задач: элементы отдаются по одному, а не списком целиком. */
     fun streamAll(): Flow<Task> = flow {
         val tasks = withContext(Dispatchers.IO) { taskRepository.findAll() }
         for (task in tasks) {
@@ -65,7 +62,6 @@ class TaskService(
         }
     }
 
-    /** Поток задач одного пользователя. Если пользователя нет, поток просто пустой. */
     fun streamByUser(userId: Long): Flow<Task> = flow {
         val tasks = withContext(Dispatchers.IO) { taskRepository.findAllByUserId(userId) }
         for (task in tasks) {
