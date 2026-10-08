@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-/** Контроллер только принимает запрос и вызывает сервис. Правил и логики здесь нет. */
 @RestController
 @RequestMapping("/api/users")
 class UserController(private val userService: UserService) {
