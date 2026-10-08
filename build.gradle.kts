@@ -26,7 +26,6 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    // Корутины: suspend-эндпоинты и Flow в Spring MVC работают через адаптер к Reactor
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
@@ -42,7 +41,6 @@ kotlin {
     }
 }
 
-// Сущности JPA должны быть open
 allOpen {
     annotation("jakarta.persistence.Entity")
     annotation("jakarta.persistence.MappedSuperclass")
