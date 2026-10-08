@@ -15,11 +15,6 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.resource.NoResourceFoundException
 import java.io.IOException
 
-/**
- * Единый обработчик ошибок. Любая ошибка превращается в JSON одного из двух форматов:
- *   {"error": "..."}
- *   {"message": "...", "errors": {"поле": "сообщение"}}
- */
 @RestControllerAdvice
 class GlobalExceptionHandler {
 
