@@ -43,17 +43,14 @@ class TaskController(
     suspend fun deleteTask(@PathVariable id: Long): ResponseEntity<Any> =
         taskService.delete(id).toResponseEntity()
 
-    /** Стрим всех задач (Server-Sent Events): задачи приходят по одной. */
     @GetMapping("/stream", produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
     fun streamTasks(): Flow<TaskResponse> =
         taskService.streamAll().map { it.toResponse() }
 
-    /** Стрим задач одного пользователя. */
     @GetMapping("/user/{userId}/stream", produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
     fun streamUserTasks(@PathVariable userId: Long): Flow<TaskResponse> =
         taskService.streamByUser(userId).map { it.toResponse() }
 
-    /** Тот же dashboard, что и /api/users/{id}/dashboard, по адресу из примера curl в задании. */
     @GetMapping("/user/{userId}/dashboard")
     suspend fun getUserDashboard(@PathVariable userId: Long): ResponseEntity<Any> =
         userService.getDashboard(userId).toResponseEntity()
