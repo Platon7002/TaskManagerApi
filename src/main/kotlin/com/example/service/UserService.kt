@@ -24,9 +24,6 @@ class UserService(
     private val taskRepository: TaskRepository
 ) {
 
-    // JPA-репозитории блокирующие, поэтому каждый вызов уходит на Dispatchers.IO:
-    // так обработка запросов не занимает основной поток.
-
     suspend fun create(request: CreateUserRequest): UserResult = withContext(Dispatchers.IO) {
         val user = request.toEntity()
         if (userRepository.existsByEmail(user.email)) {
@@ -45,11 +42,6 @@ class UserService(
         if (user == null) UserResult.NotFound(id) else UserResult.Success(user)
     }
 
-    /**
-     * Сводка по пользователю. Пять независимых запросов к базе выполняются ПАРАЛЛЕЛЬНО
-     * (async), а затем результаты собираются через await().
-     * coroutineScope гарантирует, что функция не завершится, пока не закончатся все async.
-     */
     suspend fun getDashboard(userId: Long): DashboardResult = coroutineScope {
         val today = LocalDate.now()
 
