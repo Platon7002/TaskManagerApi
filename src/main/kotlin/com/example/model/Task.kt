@@ -14,7 +14,6 @@ import jakarta.persistence.Table
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-/** Задача. Принадлежит ровно одному пользователю (N — 1). */
 @Entity
 @Table(name = "tasks")
 class Task(
